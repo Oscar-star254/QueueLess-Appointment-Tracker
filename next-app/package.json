@@ -1,0 +1,52 @@
+{
+  "name": "fundifind",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "db:generate": "prisma generate",
+    "db:validate": "prisma validate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "tsx --env-file=.env prisma/seed.ts",
+    "role:set": "tsx --env-file=.env scripts/set-role.ts",
+    "test:db": "tsx --env-file=.env --test tests/database.test.ts",
+    "build:vercel": "pnpm db:generate && pnpm build",
+    "db:seed:production": "NODE_ENV=production tsx prisma/seed.ts",
+    "release:production": "node scripts/release.mjs"
+  },
+  "prisma": {
+    "seed": "tsx --env-file=.env prisma/seed.ts"
+  },
+  "dependencies": {
+    "next": "^15.5.12",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next-auth": "^4.24.14",
+    "@prisma/client": "6.19.3",
+    "bcryptjs": "^3.0.2",
+    "zod": "^4.0.0",
+    "nodemailer": "^7.0.0",
+    "lucide-react": "^1.50.0",
+    "recharts": "^3.10.1"
+  },
+  "devDependencies": {
+    "prisma": "6.19.3",
+    "tsx": "^4.20.0",
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/nodemailer": "^7.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0"
+  },
+  "packageManager": "pnpm@10.34.3",
+  "engines": {
+    "node": "22.x"
+  }
+}

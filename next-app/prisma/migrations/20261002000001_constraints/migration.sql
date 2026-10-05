@@ -1,0 +1,17 @@
+ALTER TABLE "User" ADD CONSTRAINT "User_phone_normalized" CHECK ("phone" ~ '^254[17][0-9]{8}$');
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_phone_normalized" CHECK ("phone" ~ '^254[17][0-9]{8}$');
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_whatsapp_normalized" CHECK ("whatsapp" IS NULL OR "whatsapp" ~ '^254[17][0-9]{8}$');
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_price_range" CHECK (("minPrice" IS NULL OR "minPrice" >= 0) AND ("maxPrice" IS NULL OR "maxPrice" >= 0) AND ("minPrice" IS NULL OR "maxPrice" IS NULL OR "maxPrice" >= "minPrice"));
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_coordinates" CHECK (("latitude" IS NULL AND "longitude" IS NULL) OR ("latitude" IS NOT NULL AND "longitude" IS NOT NULL AND "latitude" BETWEEN -90 AND 90 AND "longitude" BETWEEN -180 AND 180));
+ALTER TABLE "Listing" ADD CONSTRAINT "Listing_experience" CHECK ("yearsExperience" IS NULL OR "yearsExperience" BETWEEN 0 AND 100);
+ALTER TABLE "Review" ADD CONSTRAINT "Review_rating_range" CHECK ("rating" BETWEEN 1 AND 5);
+ALTER TABLE "County" ADD CONSTRAINT "County_code_range" CHECK ("code" BETWEEN 1 AND 47);
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_amount_positive" CHECK ("amount" > 0 AND "currency" = 'KES');
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_phone_normalized" CHECK ("phone" ~ '^254[17][0-9]{8}$');
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_one_product" CHECK (("planId" IS NOT NULL) <> ("addonId" IS NOT NULL));
+ALTER TABLE "Plan" ADD CONSTRAINT "Plan_positive_limits" CHECK ("price" >= 0 AND "durationDays" > 0 AND "maxPhotos" >= 0 AND "maxServices" > 0);
+ALTER TABLE "Addon" ADD CONSTRAINT "Addon_positive_limits" CHECK ("price" >= 0 AND "durationDays" > 0);
+ALTER TABLE "Coupon" ADD CONSTRAINT "Coupon_value" CHECK ("value" > 0 AND ("type" <> 'PERCENT' OR "value" <= 100) AND ("usageLimit" IS NULL OR "usageLimit" > 0) AND "usageCount" >= 0);
+ALTER TABLE "Subscription" ADD CONSTRAINT "Subscription_dates" CHECK ("endsAt" > "startsAt");
+ALTER TABLE "AddonPurchase" ADD CONSTRAINT "AddonPurchase_dates" CHECK ("endsAt" > "startsAt");
+ALTER TABLE "ListingImage" ADD CONSTRAINT "ListingImage_dimensions" CHECK ("width" > 0 AND "height" > 0);

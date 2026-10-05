@@ -1,0 +1,10 @@
+{
+  "description": "Streamline customer flow with digital queues and real-time updates for walk-in businesses, enhancing wait management and customer satisfaction.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
